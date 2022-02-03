@@ -1830,7 +1830,7 @@ export function compiler(
       _react(node, output, state) {
         return (
           // @ts-ignore
-          <node.tag key={state._key} {...node.attrs}>
+          <node.tag key={state._key} {...node.attrs} $markdownToJsxContext={{isFromHtml: true}}>
             {node.noInnerParse
               ? (node.content as string)
               : output(node.content as MarkdownToJSX.ParserResult, state)}
@@ -1857,7 +1857,8 @@ export function compiler(
         }
       },
       _react(node, output, state) {
-        return <node.tag {...node.attrs} key={state._key} />
+        // @ts-ignore
+        return <node.tag {...node.attrs} key={state._key} $markdownToJsxContext={{isFromHtml: true}}/>
       },
     } as MarkdownToJSX.Rule<{
       attrs: ReturnType<typeof attrStringToMap>
